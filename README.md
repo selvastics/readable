@@ -1,63 +1,75 @@
 # Readable
 
-A minimal, clean text readability analyzer built with Next.js and TypeScript.
+A clean, minimalistic text readability analyzer built with Next.js 15 and TypeScript.
 
-## What is Readable?
+## What it does
 
-A simple tool to analyze text readability using the Flesch Reading Ease scoring system. Upload text files or paste content to get instant readability statistics and comprehension levels.
+Analyze text readability using the Flesch Reading Ease scoring system. Upload .txt files or paste content to get instant readability statistics and comprehension levels.
 
 ## Features
 
-- Upload .txt files with drag & drop
-- Paste text directly for analysis
+- Upload .txt files with drag & drop interface
+- Paste text directly for instant analysis
 - Flesch Reading Ease scoring (0-100 scale)
-- Text statistics (words, sentences, characters)
-- Reading difficulty levels (Very Easy to Very Difficult)
-- Clean, minimal GitHub-style interface
+- Text statistics (words, sentences, characters, avg sentence length)
+- Color-coded difficulty levels (Very Easy to Very Difficult)
+- Clean GitHub-style minimalistic interface
 - Dark/light mode toggle
-- Test section for future comprehension features
+- Two main sections: Reader (analysis) and Test (placeholder)
 
-## Getting Started
+## Live Demo
 
-Requirements:
-- Node.js 18+
-- npm or pnpm
+Visit: **https://github.com/selvastics/readable**
 
-Install and run:
-```sh
+## Local Development
+
+```bash
 git clone https://github.com/selvastics/readable.git
 cd readable
 npm install
 npm run dev
 ```
 
-## Usage
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-1. Open the app in your browser
-2. Upload a .txt file or paste your text
-3. Get instant readability scores and statistics
-4. Use the analysis to improve content accessibility
+## How to Use
+
+1. Go to the **Reader** tab
+2. Either upload a .txt file (drag & drop supported) or paste your text
+3. Get instant readability analysis with scores and statistics
+4. Use the **Test** tab for future reading comprehension features
 
 ## Readability Scale
 
-- 90-100: Very Easy (5th grade)
-- 80-89: Easy (6th grade)
-- 70-79: Fairly Easy (7th grade)
-- 60-69: Standard (8th-9th grade)
-- 50-59: Fairly Difficult (10th-12th grade)
-- 30-49: Difficult (College level)
-- 0-29: Very Difficult (Graduate level)
+- **90-100**: Very Easy (5th grade level)
+- **80-89**: Easy (6th grade level) 
+- **70-79**: Fairly Easy (7th grade level)
+- **60-69**: Standard (8th-9th grade level)
+- **50-59**: Fairly Difficult (10th-12th grade level)
+- **30-49**: Difficult (College level)
+- **0-29**: Very Difficult (Graduate level)
+
+## Tech Stack
+
+- Next.js 15.2.4
+- React 19
+- TypeScript
+- Tailwind CSS
+- Radix UI Components
+- Lucide React Icons
 
 ## File Structure
 
 ```
-app/         # Main app code
-components/  # UI components
-lib/         # Utility functions
-public/      # Static assets
-styles/      # CSS
+app/           # Next.js app directory
+  page.tsx     # Main application component
+components/    # Reusable UI components
+  ui/          # Shadcn/ui components
+lib/           # Utility functions
+public/        # Static assets
+styles/        # Global CSS
 ```
 
-## License
+Built with modern web technologies for fast, responsive performance.
 
 MIT
