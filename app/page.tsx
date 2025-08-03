@@ -130,6 +130,9 @@ export default function ReadingPlatform() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
   const [showStats, setShowStats] = useState(false)
+  const [isFileUploading, setIsFileUploading] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [uploadError, setUploadError] = useState("")
   const [text, setText] = useState("")
   const [words, setWords] = useState<string[]>([])
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
@@ -270,6 +273,11 @@ export default function ReadingPlatform() {
     if (newText.trim()) {
       const wordArray = newText.trim().split(/\s+/).filter(Boolean)
       setWords(wordArray)
+      // Show upload success feedback
+      if (newText.length > 50) {
+        setUploadSuccess(true)
+        setTimeout(() => setUploadSuccess(false), 2000)
+      }
     } else {
       setWords([])
     }
@@ -279,13 +287,25 @@ export default function ReadingPlatform() {
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (file && file.type === "text/plain") {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const content = e.target?.result as string
-        handleTextChange(content)
+    if (file) {
+      if (file.type === "text/plain" || file.name.endsWith('.txt')) {
+        setIsFileUploading(true)
+        setUploadError("")
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const content = e.target?.result as string
+          handleTextChange(content)
+          setIsFileUploading(false)
+        }
+        reader.onerror = () => {
+          setUploadError("Failed to read file")
+          setIsFileUploading(false)
+        }
+        reader.readAsText(file)
+      } else {
+        setUploadError("Please upload a .txt file")
+        setTimeout(() => setUploadError(""), 3000)
       }
-      reader.readAsText(file)
     }
   }
 
@@ -308,12 +328,22 @@ export default function ReadingPlatform() {
     const textFile = files.find(file => file.type === "text/plain" || file.name.endsWith('.txt'))
     
     if (textFile) {
+      setIsFileUploading(true)
+      setUploadError("")
       const reader = new FileReader()
       reader.onload = (e) => {
         const content = e.target?.result as string
         handleTextChange(content)
+        setIsFileUploading(false)
+      }
+      reader.onerror = () => {
+        setUploadError("Failed to read file")
+        setIsFileUploading(false)
       }
       reader.readAsText(textFile)
+    } else {
+      setUploadError("Please upload a .txt file")
+      setTimeout(() => setUploadError(""), 3000)
     }
   }
 
@@ -706,6 +736,10 @@ export default function ReadingPlatform() {
                 border-2 border-dashed rounded-lg p-6 text-center transition-all duration-200
                 ${isDragOver 
                   ? 'border-primary bg-primary/10 scale-[1.02]' 
+                  : uploadSuccess 
+                  ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+                  : uploadError
+                  ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
                   : 'border-border hover:border-primary/50 bg-muted/20'
                 }
               `}
@@ -716,15 +750,57 @@ export default function ReadingPlatform() {
               <div className="flex flex-col items-center space-y-3">
                 <div className={`
                   w-12 h-12 rounded-full flex items-center justify-center transition-colors
-                  ${isDragOver ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}
+                  ${isDragOver 
+                    ? 'bg-primary text-primary-foreground' 
+                    : uploadSuccess 
+                    ? 'bg-green-500 text-white'
+                    : uploadError
+                    ? 'bg-red-500 text-white'
+                    : isFileUploading
+                    ? 'bg-blue-500 text-white animate-pulse'
+                    : 'bg-muted text-muted-foreground'
+                  }
                 `}>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
+                  {isFileUploading ? (
+                    <svg className="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  ) : uploadSuccess ? (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : uploadError ? (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  ) : (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                  )}
                 </div>
                 <div>
-                  <p className={`font-medium ${isDragOver ? 'text-primary' : 'text-foreground'}`}>
-                    {isDragOver ? 'Drop your text file here' : 'Upload or drag & drop text file'}
+                  <p className={`font-medium ${
+                    isDragOver 
+                      ? 'text-primary' 
+                      : uploadSuccess 
+                      ? 'text-green-600 dark:text-green-400'
+                      : uploadError
+                      ? 'text-red-600 dark:text-red-400'
+                      : isFileUploading
+                      ? 'text-blue-600 dark:text-blue-400'
+                      : 'text-foreground'
+                  }`}>
+                    {isFileUploading 
+                      ? 'Processing file...' 
+                      : uploadSuccess 
+                      ? 'File uploaded successfully!'
+                      : uploadError
+                      ? uploadError
+                      : isDragOver 
+                      ? 'Drop your text file here' 
+                      : 'Upload or drag & drop text file'
+                    }
                   </p>
                   <p className="text-sm text-muted-foreground">Supports .txt files only</p>
                 </div>
@@ -734,9 +810,14 @@ export default function ReadingPlatform() {
                     accept=".txt,text/plain"
                     onChange={handleFileUpload}
                     className="sr-only"
+                    disabled={isFileUploading}
                   />
-                  <Button variant="outline" className="bg-background border-border hover:bg-accent">
-                    Choose File
+                  <Button 
+                    disabled={isFileUploading}
+                    variant="outline" 
+                    className="bg-background border-border hover:bg-accent disabled:opacity-50"
+                  >
+                    {isFileUploading ? 'Processing...' : 'Choose File'}
                   </Button>
                 </label>
               </div>
@@ -757,9 +838,9 @@ export default function ReadingPlatform() {
 
             {/* Compact Stats and Reading Level - Always show when text exists */}
             {text && (
-              <div className="space-y-4">
+              <div className="space-y-4 animate-in fade-in-50 duration-500">
                 {/* Quick Stats Bar */}
-                <div className="flex flex-wrap gap-4 text-sm">
+                <div className="flex flex-wrap gap-4 text-sm bg-muted/30 rounded-lg p-3">
                   <span className="text-muted-foreground">
                     <strong className="text-foreground">{textStats.words}</strong> words
                   </span>
@@ -776,20 +857,20 @@ export default function ReadingPlatform() {
 
                 {/* Detailed Stats (Expandable) */}
                 {showStats && (
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="p-3 border border-border rounded-lg bg-muted/30">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in slide-in-from-top-3 duration-300">
+                    <div className="p-3 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <h3 className="font-medium text-foreground text-sm">Words</h3>
                       <p className="text-xl font-bold text-primary">{textStats.words}</p>
                     </div>
-                    <div className="p-3 border border-border rounded-lg bg-muted/30">
+                    <div className="p-3 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <h3 className="font-medium text-foreground text-sm">Characters</h3>
                       <p className="text-xl font-bold text-primary">{textStats.characters}</p>
                     </div>
-                    <div className="p-3 border border-border rounded-lg bg-muted/30">
+                    <div className="p-3 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <h3 className="font-medium text-foreground text-sm">Sentences</h3>
                       <p className="text-xl font-bold text-primary">{textStats.sentences}</p>
                     </div>
-                    <div className="p-3 border border-border rounded-lg bg-muted/30">
+                    <div className="p-3 border border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
                       <h3 className="font-medium text-foreground text-sm">Flesch Score</h3>
                       <p className="text-xl font-bold text-primary">{readingLevel.fleschScore}</p>
                     </div>
@@ -797,14 +878,14 @@ export default function ReadingPlatform() {
                 )}
 
                 {/* Reading Level Analysis */}
-                <div className="p-4 border border-border rounded-lg bg-background">
+                <div className="p-4 border border-border rounded-lg bg-background hover:bg-muted/20 transition-colors">
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="font-semibold text-foreground">Reading Level: {readingLevel.level}</h3>
                       <p className="text-sm text-muted-foreground">Grade Level: {readingLevel.gradeLevel}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-primary">{readingLevel.fleschScore}</p>
+                      <p className="text-3xl font-bold text-primary">{readingLevel.fleschScore}</p>
                       <p className="text-xs text-muted-foreground">Flesch Score</p>
                     </div>
                   </div>
