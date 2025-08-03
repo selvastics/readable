@@ -1,17 +1,19 @@
-# Reable
+# Speed Reader
 
-A minimal, fast reading and comprehension tool built with Next.js and TypeScript.
+A minimal, fast speed reading trainer built with Next.js and TypeScript.
 
-## What is Reable?
+## What is Speed Reader?
 
-Most people think they're slow readers, but it's usually just too much distraction. Reable helps you focus by showing one word at a time. Start at 300 words per minute, read more, and you'll get faster.
+Most people read around 200 words per minute, but when you focus on just one word at a time, you can read much faster. Speed Reader helps you train your reading fluency by displaying one word at a time at your chosen speed.
 
 ## Features
 
-- Paste or upload text files
+- Upload PDF, TXT, and other text files
 - Drag & drop file upload
-- Quick readability stats (words, sentences, reading level)
-- Flesch Reading Ease and grade level analysis
+- Adjustable reading speed (200-800 WPM)
+- Large, focused single-word display
+- Progress tracking with visual progress bar
+- Play/Pause/Reset controls
 - Minimal, distraction-free UI
 - Dark/light mode toggle
 
@@ -32,9 +34,18 @@ npm run dev
 ## Usage
 
 1. Open the app in your browser.
-2. Paste text or upload a `.txt` file.
-3. See instant readability stats and reading level.
-4. Use the test section for comprehension checks.
+2. Upload a text file or PDF document.
+3. Set your preferred reading speed (start with 300 WPM).
+4. Click Start and focus on each word as it appears.
+5. Use Pause/Resume and Reset controls as needed.
+
+## Speed Reading Tips
+
+- Start with comfortable speed (300-400 WPM) and gradually increase
+- Focus on the center of each word to improve recognition
+- Try not to subvocalize (say words in your head)
+- Practice regularly to build reading fluency
+- Use different types of texts to challenge yourself
 
 ## File Structure
 
