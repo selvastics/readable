@@ -1,21 +1,21 @@
-# Speed Reader
+# Readable
 
-A minimal, fast speed reading trainer built with Next.js and TypeScript.
+A minimal, clean text readability analyzer built with Next.js and TypeScript.
 
-## What is Speed Reader?
+## What is Readable?
 
-Most people read around 200 words per minute, but when you focus on just one word at a time, you can read much faster. Speed Reader helps you train your reading fluency by displaying one word at a time at your chosen speed.
+A simple tool to analyze text readability using the Flesch Reading Ease scoring system. Upload text files or paste content to get instant readability statistics and comprehension levels.
 
 ## Features
 
-- Upload PDF, TXT, and other text files
-- Drag & drop file upload
-- Adjustable reading speed (200-800 WPM)
-- Large, focused single-word display
-- Progress tracking with visual progress bar
-- Play/Pause/Reset controls
-- Minimal, distraction-free UI
+- Upload .txt files with drag & drop
+- Paste text directly for analysis
+- Flesch Reading Ease scoring (0-100 scale)
+- Text statistics (words, sentences, characters)
+- Reading difficulty levels (Very Easy to Very Difficult)
+- Clean, minimal GitHub-style interface
 - Dark/light mode toggle
+- Test section for future comprehension features
 
 ## Getting Started
 
@@ -33,19 +33,20 @@ npm run dev
 
 ## Usage
 
-1. Open the app in your browser.
-2. Upload a text file or PDF document.
-3. Set your preferred reading speed (start with 300 WPM).
-4. Click Start and focus on each word as it appears.
-5. Use Pause/Resume and Reset controls as needed.
+1. Open the app in your browser
+2. Upload a .txt file or paste your text
+3. Get instant readability scores and statistics
+4. Use the analysis to improve content accessibility
 
-## Speed Reading Tips
+## Readability Scale
 
-- Start with comfortable speed (300-400 WPM) and gradually increase
-- Focus on the center of each word to improve recognition
-- Try not to subvocalize (say words in your head)
-- Practice regularly to build reading fluency
-- Use different types of texts to challenge yourself
+- 90-100: Very Easy (5th grade)
+- 80-89: Easy (6th grade)
+- 70-79: Fairly Easy (7th grade)
+- 60-69: Standard (8th-9th grade)
+- 50-59: Fairly Difficult (10th-12th grade)
+- 30-49: Difficult (College level)
+- 0-29: Very Difficult (Graduate level)
 
 ## File Structure
 
