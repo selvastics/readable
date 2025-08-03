@@ -1,135 +1,51 @@
-# Reable - Advanced Speed Reading Platform
+# Reable
 
-A comprehensive Next.js-based speed reading and comprehension training platform with integrated testing and analytics.
+A minimal, fast reading and comprehension tool built with Next.js and TypeScript.
+
+## What is Reable?
+
+Most people think they're slow readers, but it's usually just too much distraction. Reable helps you focus by showing one word at a time. Start at 300 words per minute, read more, and you'll get faster.
 
 ## Features
 
-### 🚀 Speed Reading Engine
-- **Customizable reading speeds** (50-1000 WPM)
-- **Real-time progress tracking**
-- **Pause at punctuation** support
-- **Highlight mode** for focus training
-- **Keyboard shortcuts** (Space, Escape, R)
-- **Mobile-responsive design**
+- Paste or upload text files
+- Drag & drop file upload
+- Quick readability stats (words, sentences, reading level)
+- Flesch Reading Ease and grade level analysis
+- Minimal, distraction-free UI
+- Dark/light mode toggle
 
-### 🧠 Comprehension Testing
-- **Multiple test batteries**:
-  - Basic Reading Comprehension
-  - Advanced Text Analysis
-  - Speed Reading Comprehension
-- **Adaptive difficulty** progression
-- **Multiple question types**:
-  - Multiple choice
-  - True/False
-  - Short answer
-  - Fill-in-the-blank
-- **Real-time scoring** and analytics
+## Getting Started
 
-### 📊 Analytics & Tracking
-- **Comprehensive performance profiles**
-- **Reading speed progression**
-- **Comprehension category analysis**:
-  - Literal comprehension
-  - Inferential reasoning
-  - Critical analysis
-  - Vocabulary knowledge
-  - Main idea identification
-- **Strengths and weaknesses identification**
-- **Personalized recommendations**
-
-### 🔬 Research Integration
-- **Data export** capabilities
-- **Research study participation**
-- **Performance analytics**
-- **Comprehensive reporting**
-
-## Quick Start
-
-### Prerequisites
-- Node.js 18+ 
+Requirements:
+- Node.js 18+
 - npm or pnpm
 
-### Installation
-```bash
-# Clone the repository
-git clone [repository-url]
-cd reable
-
-# Install dependencies
+Install and run:
+```sh
+git clone https://github.com/selvastics/readable.git
+cd readable
 npm install
-# or
-pnpm install
-
-# Start development server
 npm run dev
-# or
-pnpm dev
-```
-
-### Production Build
-```bash
-npm run build
-npm start
 ```
 
 ## Usage
 
-### Speed Reading
-1. **Add text**: Paste text or upload files
-2. **Set speed**: Choose from presets or enter custom WPM
-3. **Configure options**: Pause at punctuation, highlight mode, font size
-4. **Start reading**: Click "Start Reading Session"
-5. **Take test**: Automatic comprehension test follows
-
-### Testing
-1. **Choose test battery**: Basic, Advanced, or Speed Reading
-2. **Complete questions**: Adaptive difficulty based on performance
-3. **View results**: Comprehensive analysis and recommendations
-4. **Export data**: Download results for research participation
+1. Open the app in your browser.
+2. Paste text or upload a `.txt` file.
+3. See instant readability stats and reading level.
+4. Use the test section for comprehension checks.
 
 ## File Structure
+
 ```
-reable/
-├── app/
-│   ├── page.tsx          # Main application
-│   ├── layout.tsx        # Root layout
-│   └── globals.css       # Global styles
-├── components/
-│   └── ui/               # Shadcn UI components
-├── lib/
-│   └── utils.ts          # Utility functions
-├── public/               # Static assets
-├── styles/
-│   └── globals.css       # Additional styles
-└── package.json          # Dependencies
+app/         # Main app code
+components/  # UI components
+lib/         # Utility functions
+public/      # Static assets
+styles/      # CSS
 ```
-
-## Technology Stack
-- **Next.js 14** - React framework
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Shadcn/ui** - UI components
-- **Lucide React** - Icons
-- **Radix UI** - Accessible components
-
-## Browser Support
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Contributing
-This platform is designed for research and educational purposes. Contributions welcome for:
-- Additional test batteries
-- New question types
-- Performance analytics
-- Research integrations
 
 ## License
-MIT License - See LICENSE file for details
 
-## Research Participation
-This platform integrates with research studies. Data can be exported for analysis at [inrep-platform.com](https://inrep-platform.com)
-
-## Support
-For issues or questions, please open an issue on GitHub or contact the development team.
+MIT
